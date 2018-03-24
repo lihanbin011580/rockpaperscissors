@@ -20,7 +20,7 @@ HIST_FILE = 'player_move_history.txt'
 EVAL_SEQ_NUM = 2
 WINDOW = EVAL_SEQ_NUM + 1
 SEQ_FILE = 'player_move_sequence.txt'
-SEQ_STATS_FILE='player_move_stats.json'
+GAME_STATS_FILE='game_stats.txt'
 
 #Collect stats
 # How many games to play before collecting stats

@@ -1,11 +1,9 @@
 '''
-This program would run in the background and collect stats
-on player moves by sequence.
+This program will collect stats on player moves by sequence.
 '''
 
 import constants
 import time
-from collections import Counter
 
 def create_dict():
     count_lines = 0

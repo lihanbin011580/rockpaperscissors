@@ -4,6 +4,7 @@ from random import randint
 import sys
 import constants
 import genplayerstats
+import gengamestats
 import logging
 
 #Handle logging
@@ -165,7 +166,18 @@ if __name__ == '__main__':
         #Output player move to history file
         with open(constants.HIST_FILE,'a') as f:
             f.write(str(player))
-    
+        
+        with open(constants.GAME_STATS_FILE,'a') as f:
+            f.write(str(result))
+			
+        game_stats = gengamestats.create_dict()	
+        print 'Historical stats: Player: ' + str(game_stats[str(constants.PLAYER_WINS)]) \
+		    + ' Computer: ' + str(game_stats[str(constants.COMPUTER_WINS)]) \
+            + ' Ties: ' + str(game_stats[str(constants.TIE)])
+        logger.info('Historical stats: Player: ' + str(game_stats[str(constants.PLAYER_WINS)]) \
+		    + ' Computer: ' + str(game_stats[str(constants.COMPUTER_WINS)]) \
+            + ' Ties: ' + str(game_stats[str(constants.TIE)]))
+			
         build_seq_file_by_window()
 
                  
