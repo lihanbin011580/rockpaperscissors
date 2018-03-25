@@ -173,19 +173,10 @@ if __name__ == '__main__':
 			
         game_stats = gengamestats.create_dict()	
         
-		#Assign value of 0 if dict lookup fails
-        try:
-            hist_stats_player_wins = str(game_stats[str(constants.PLAYER_WINS)])
-        except:
-            hist_stats_player_wins = '0'
-        try:
-            hist_stats_computer_wins = str(game_stats[str(constants.COMPUTER_WINS)])
-        except:
-            hist_stats_computer_wins = '0'
-        try:
-            hist_stats_tie = str(game_stats[str(constants.TIE)])
-        except:
-            hist_stats_tie = '0'
+        #Assign value of 0 if dict lookup fails
+        hist_stats_player_wins = str(game_stats.get(str(constants.PLAYER_WINS),0))
+        hist_stats_computer_wins = str(game_stats.get(str(constants.COMPUTER_WINS),0))
+        hist_stats_tie = str(game_stats.get(str(constants.TIE),0))
 			
         print 'Historical stats: Player: ' + hist_stats_player_wins \
 		    + ' Computer: ' + hist_stats_computer_wins \
