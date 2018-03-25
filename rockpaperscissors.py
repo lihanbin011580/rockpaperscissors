@@ -116,7 +116,7 @@ if __name__ == '__main__':
         '''get seq for next computer 
            get last EVAL_SEQ_NUM moves from HIST_FILE
         '''
-        logger.info('Player Stats: ' + str(player_stats))
+        logger.info('Player Stats: ' + str(sorted(player_stats.items())))
         seq = get_last_seq()
         #Generate move for computer. Computer will make the first move so it can't be accused of cheating
         computer = gen_computer_move(player_stats,seq)
@@ -163,20 +163,36 @@ if __name__ == '__main__':
         print 'Stats for this session: Player: ' + str(num_player_wins) + ' Computer: ' + str(num_computer_wins) + ' Ties: ' + str(num_ties)
         logger.info('Stats for this session: Player: ' + str(num_player_wins) + ' Computer: ' + str(num_computer_wins) + ' Ties: ' + str(num_ties))
         
-        #Output player move to history file
-        with open(constants.HIST_FILE,'a') as f:
-            f.write(str(player))
+        if player != constants.INVALID:
+            #Output player move to history file
+            with open(constants.HIST_FILE,'a') as f:
+                f.write(str(player))
         
-        with open(constants.GAME_STATS_FILE,'a') as f:
-            f.write(str(result))
+            with open(constants.GAME_STATS_FILE,'a') as f:
+                f.write(str(result))
 			
         game_stats = gengamestats.create_dict()	
-        print 'Historical stats: Player: ' + str(game_stats[str(constants.PLAYER_WINS)]) \
-		    + ' Computer: ' + str(game_stats[str(constants.COMPUTER_WINS)]) \
-            + ' Ties: ' + str(game_stats[str(constants.TIE)])
-        logger.info('Historical stats: Player: ' + str(game_stats[str(constants.PLAYER_WINS)]) \
-		    + ' Computer: ' + str(game_stats[str(constants.COMPUTER_WINS)]) \
-            + ' Ties: ' + str(game_stats[str(constants.TIE)]))
+        
+		#Assign value of 0 if dict lookup fails
+        try:
+            hist_stats_player_wins = str(game_stats[str(constants.PLAYER_WINS)])
+        except:
+            hist_stats_player_wins = '0'
+        try:
+            hist_stats_computer_wins = str(game_stats[str(constants.COMPUTER_WINS)])
+        except:
+            hist_stats_computer_wins = '0'
+        try:
+            hist_stats_tie = str(game_stats[str(constants.TIE)])
+        except:
+            hist_stats_tie = '0'
+			
+        print 'Historical stats: Player: ' + hist_stats_player_wins \
+		    + ' Computer: ' + hist_stats_computer_wins \
+            + ' Ties: ' + hist_stats_tie
+        logger.info('Historical stats: Player: ' + hist_stats_player_wins \
+		    + ' Computer: ' + hist_stats_computer_wins \
+            + ' Ties: ' + hist_stats_tie)
 			
         build_seq_file_by_window()
 
