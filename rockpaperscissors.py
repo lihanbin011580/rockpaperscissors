@@ -1,6 +1,6 @@
 #Rock,paper,scissors game
 
-from random import randint
+from random import randint, choice
 import sys
 import constants
 import genplayerstats
@@ -74,19 +74,20 @@ def gen_computer_move(player_stats_dict,last_seq):
         
     else:
         logger.info('Last Seq: ' + last_seq)
+        pick_list = []
         for k,v in player_stats_dict.items(): 
             if k.startswith(last_seq):
                 tracker[k[-1:]] = v
+        
         for k,v in tracker.items():
-            if v > max_val:
-                max_val = v
-                highest_freq_move = k
-                if int(highest_freq_move) == constants.ROCK:
-                    logger.info('Temp Highest Frequency Move: r')
-                elif int(highest_freq_move) == constants.SCISSORS:
-                    logger.info('Temp Highest Frequency Move: s')
-                else:
-                    logger.info('Temp Highest Frequency Move: p')
+            for i in range(v):
+                pick_list.append(k)
+        logger.info('Pick List: ' + str(pick_list))
+        if pick_list:
+            highest_freq_move = choice(pick_list)
+        else:
+            logger.info('Empty Pick List.')
+            return randint(1,3)		
         try:
             if int(highest_freq_move) == constants.ROCK:
                 logger.info('Highest Frequency Move: r')
